@@ -9,20 +9,41 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Lab5
+namespace ProgrammingAssignment2
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        const int WINDOW_WIDTH = 800;
+        const int WINDOW_HEIGHT = 600;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        // STUDENTS: declare variables for three sprites
+
+
+        // STUDENTS: declare variables for x and y speeds
+
+
+        // used to handle generating random values
+        Random rand = new Random();
+        const int CHANGE_DELAY_TIME = 1000;
+        int elapsedTime = 0;
+
+        // used to keep track of current sprite and location
+        Texture2D currentSprite;
+        Rectangle drawRectangle = new Rectangle();
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+            graphics.PreferredBackBufferHeight = WINDOW_HEIGHT; ;
         }
 
         /// <summary>
@@ -47,7 +68,11 @@ namespace Lab5
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            // STUDENTS: load the sprite images here
+
+
+            // STUDENTS: set the currentSprite variable to one of your sprite variables
+
         }
 
         /// <summary>
@@ -70,7 +95,46 @@ namespace Lab5
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (elapsedTime > CHANGE_DELAY_TIME)
+            {
+                elapsedTime = 0;
+
+                // STUDENTS: uncomment the code below and make it generate a random number 
+                // between 0 and 2 inclusive using the rand field I provided
+                //int spriteNumber = ;
+
+                // sets current sprite
+                // STUDENTS: uncomment the lines below and change sprite0, sprite1, and sprite2
+                //      to the three different names of your sprite variables
+                //if (spriteNumber == 0)
+                //{
+                //    currentSprite = sprite0;
+                //}
+                //else if (spriteNumber == 1)
+                //{
+                //    currentSprite = sprite1;
+                //}
+                //else if (spriteNumber == 2)
+                //{
+                //    currentSprite = sprite2;
+                //}
+
+                // STUDENTS: set the drawRectangle.Width and drawRectangle.Height to match the width and height of currentSprite
+
+
+                // STUDENTS: center the draw rectangle in the window. Note that the X and Y properties of the rectangle
+                // are for the upper left corner of the rectangle, not the center of the rectangle
+
+
+                // STUDENTS: write code below to generate random numbers  between -4 and 4 inclusive for the x and y speed 
+				// using the rand field I provided
+                // CAUTION: Don't redeclare the x speed and y speed variables here!
+
+            }
+
+            // STUDENTS: move the drawRectangle by the x speed and the y speed
+
 
             base.Update(gameTime);
         }
@@ -83,7 +147,8 @@ namespace Lab5
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // STUDENTS: draw current sprite here
+
 
             base.Draw(gameTime);
         }
