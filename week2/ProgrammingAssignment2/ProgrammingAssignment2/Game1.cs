@@ -23,10 +23,13 @@ namespace ProgrammingAssignment2
         SpriteBatch spriteBatch;
 
         // STUDENTS: declare variables for three sprites
-
+        Texture2D growlithe;
+        Texture2D raichu;
+        Texture2D squirtle;
 
         // STUDENTS: declare variables for x and y speeds
-
+        int X_SPEEDY = 1;
+        int Y_SPEEDY = 1;
 
         // used to handle generating random values
         Random rand = new Random();
@@ -68,10 +71,11 @@ namespace ProgrammingAssignment2
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // STUDENTS: load the sprite images here
+            raichu = Content.Load<Texture2D>("raichu-f");
+            growlithe = Content.Load<Texture2D>("growlithe");
+            squirtle = Content.Load<Texture2D>("squirtle");
 
-
-            // STUDENTS: set the currentSprite variable to one of your sprite variables
+            currentSprite = raichu;
 
         }
 
@@ -102,37 +106,40 @@ namespace ProgrammingAssignment2
 
                 // STUDENTS: uncomment the code below and make it generate a random number 
                 // between 0 and 2 inclusive using the rand field I provided
-                //int spriteNumber = ;
+                int spriteNumber = rand.Next(0, 2);
 
                 // sets current sprite
                 // STUDENTS: uncomment the lines below and change sprite0, sprite1, and sprite2
                 //      to the three different names of your sprite variables
-                //if (spriteNumber == 0)
-                //{
-                //    currentSprite = sprite0;
-                //}
-                //else if (spriteNumber == 1)
-                //{
-                //    currentSprite = sprite1;
-                //}
-                //else if (spriteNumber == 2)
-                //{
-                //    currentSprite = sprite2;
-                //}
+                if (spriteNumber == 0)
+                {
+                    currentSprite = raichu;
+                }
+                else if (spriteNumber == 1)
+                {
+                    currentSprite = squirtle;
+                }
+                else if (spriteNumber == 2)
+                {
+                    currentSprite = growlithe;
+                }
 
                 // STUDENTS: set the drawRectangle.Width and drawRectangle.Height to match the width and height of currentSprite
 
+                drawRectangle.Width = currentSprite.Width;
+                drawRectangle.Height = currentSprite.Height;
+                drawRectangle.X = WINDOW_WIDTH / 2 - currentSprite.Width;
+                drawRectangle.Y = WINDOW_HEIGHT / 2 - currentSprite.Height;
 
-                // STUDENTS: center the draw rectangle in the window. Note that the X and Y properties of the rectangle
-                // are for the upper left corner of the rectangle, not the center of the rectangle
-
-
+                X_SPEEDY = rand.Next(-4, 4);
+                Y_SPEEDY = rand.Next(-4, 4);
                 // STUDENTS: write code below to generate random numbers  between -4 and 4 inclusive for the x and y speed 
-				// using the rand field I provided
+                // using the rand field I provided
                 // CAUTION: Don't redeclare the x speed and y speed variables here!
 
             }
-
+            drawRectangle.X += X_SPEEDY;
+            drawRectangle.Y += Y_SPEEDY;
             // STUDENTS: move the drawRectangle by the x speed and the y speed
 
 
@@ -148,7 +155,9 @@ namespace ProgrammingAssignment2
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // STUDENTS: draw current sprite here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(currentSprite, drawRectangle, Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
